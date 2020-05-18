@@ -7,8 +7,11 @@
 #' @return peturbed data
 #' @export
 peturb_uniform <- function(data, noise = .1) {
-  data %>% dplyr::mutate(
-    x = x + stats::runif(1, min = -noise/2, max = noise/2),
-    y = y + stats::runif(1, min = -noise/2, max = noise/2)
-  )
+  data %>%
+    dplyr::group_by(group) %>%
+    dplyr::mutate(
+      x = x + stats::runif(1, min = -noise/2, max = noise/2),
+      y = y + stats::runif(1, min = -noise/2, max = noise/2)
+    ) %>%
+    dplyr::ungroup()
 }

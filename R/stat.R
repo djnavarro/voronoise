@@ -15,12 +15,7 @@ StatVoronoiseTile <- ggplot2::ggproto(
       data, scales, bound, eps, max.radius,
       normalize, asp.ratio)
 
-    vtile <- vtile %>%
-      dplyr::group_by(group) %>%
-      peturb() %>%
-      dplyr::ungroup()
-
-    return(vtile)
+    return(peturb(vtile))
   }
 )
 
