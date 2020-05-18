@@ -21,3 +21,5 @@ Imports:
 Depends: 
     ggplot2,
     ggforce
+URL: https://github.com/djnavarro/voronoise
+BugReports: https://github.com/djnavarro/voronoise/issues
