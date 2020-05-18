@@ -1,5 +1,9 @@
 # define the voronoise stat
 
+#' Voronoise extensions to ggplot2
+#'
+#' The voronoise package provides the voronoise_tile stat.
+#'
 #' @export
 StatVoronoiseTile <- ggplot2::ggproto(
   "StatVoronoiseTile", ggforce::StatVoronoiTile,
