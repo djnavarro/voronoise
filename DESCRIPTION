@@ -1,13 +1,16 @@
 Package: voronoise
-Title: What the Package Does (One Line, Title Case)
+Title: Makes Artwork From Voronoi Tesselations
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Danielle",
+           family = "Navarro",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+           email = "d.navarro@unsw.edu.au",
+           comment = c(ORCID = "0000-0001-7648-6578"))
+Description: Defines a modified stat function designed to work with the
+    voronoi geoms provided by the ggforce package. The voronoise package
+    is a minor extension of ggforce and ggplot2 and depends on both 
+    packages.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
