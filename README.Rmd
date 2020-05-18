@@ -9,7 +9,9 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   fig.path = "man/figures/README-",
-  out.width = "100%"
+  out.width = "100%", 
+  fig.width=10, 
+  dpi=300
 )
 ```
 
@@ -26,40 +28,74 @@ remotes::install_github("djnavarro/voronoise")
 
 ## Example
 
-```{r example, fig.width=10, dpi=300}
+Create a tibble with columns specifying the x and y coordinates, and the colours to be associated with the corresponding Voronoi cell
+
+```{r dataset}
 library(voronoise)
 
 set.seed(1)
 
-shades <- function(n) {
-  sample(colours(), size = n, replace = TRUE)
-}
-
-dat <- data.frame(
+dat <- tibble::tibble(
   x = runif(n = 50, min = .1, max = .9),
   y = runif(n = 50, min = .1, max = .9),
-  cols_b = "antiquewhite2",
-  cols_f = shades(50)
+  shade = sample(colours(), size = 50, replace = TRUE)
 )
 
-ggplot(dat, aes(x, y, group = 1)) + 
-  geom_voronoi_tile(
-    mapping = aes(fill = cols_b),
-    show.legend = FALSE, 
-    max.radius = .1,
-    radius = .01, 
-    expand = -.005
-  ) + 
-  geom_voronoi_tile(
-    mapping = aes(fill = cols_f),
-    stat = "voronoise_tile",
-    show.legend = FALSE,
-    max.radius = .1,
-    radius = .01, 
-    expand = -.005
-  ) + 
-  scale_fill_identity() +
-  theme_mono("antiquewhite3") +
-  coord_square()
+dat
 ```
 
+Set up a ggplot defined on the unit square, with an `"antiquewhite"` background:
+
+```{r baseplot}
+base <- ggplot(
+  data = dat, 
+  mapping = aes(x, y, fill = shade, group = 1)
+) + 
+  scale_fill_identity() +
+  scale_x_continuous(expand = c(0, 0)) + 
+  scale_y_continuous(expand = c(0, 0)) + 
+  theme_mono("antiquewhite3") +
+  coord_square()
+
+base
+```
+
+The default behaviour of `geom_voronoise()` is identical to `ggforce::geom_voronoi_tile()` with some parameter values changed. It does not perturb the location of any of the tiles:
+
+```{r boring}
+base + 
+  geom_voronoise(fill = "antiquewhite2")
+```
+
+To perturb the tiles we need to pass it a `perturb` function:
+
+```{r uniform}
+base + 
+  geom_voronoise(fill = "antiquewhite2") + 
+  geom_voronoise(
+    mapping = aes(fill = shade), 
+    perturb = perturb_uniform
+  )  
+```
+
+It's not too hard to define whatever perturb function one would like:
+
+```{r fall, message=FALSE}
+library(dplyr)
+
+perturb_fall <- function(data) {
+  data %>% 
+    group_by(group) %>% 
+    mutate(
+      y = y - rbeta(1, 3, 1) * min(y)
+    ) %>% 
+    ungroup()
+}
+
+base + 
+  geom_voronoise(fill = "antiquewhite2") + 
+  geom_voronoise(
+    mapping = aes(fill = shade), 
+    perturb = perturb_fall
+  )  
+```

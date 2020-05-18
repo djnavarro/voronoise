@@ -1,12 +1,12 @@
 
-#' Peturb voronoise tiles uniformly
+#' Perturb voronoise tiles uniformly
 #'
 #' @param data data passed from the voronoi_tile stat
 #' @param noise width of the uniform
 #'
-#' @return peturbed data
+#' @return perturbed data
 #' @export
-peturb_uniform <- function(data, noise = .1) {
+perturb_uniform <- function(data, noise = .1) {
   data %>%
     dplyr::group_by(group) %>%
     dplyr::mutate(

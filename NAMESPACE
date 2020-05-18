@@ -2,7 +2,8 @@
 
 export(StatVoronoiseTile)
 export(coord_square)
-export(peturb_uniform)
+export(geom_voronoise)
+export(perturb_uniform)
 export(theme_mono)
 import(ggforce)
 import(ggplot2)

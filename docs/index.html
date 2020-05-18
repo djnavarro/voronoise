@@ -50,7 +50,14 @@
   <a href="reference/index.html">Reference</a>
 </li>
       </ul>
-<ul class="nav navbar-nav navbar-right"></ul>
+<ul class="nav navbar-nav navbar-right">
+<li>
+  <a href="https://github.com/djnavarro/voronoise/">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
 </div>
 <!--/.nav-collapse -->
   </div>
@@ -72,49 +79,93 @@
 <div id="example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#example" class="anchor"></a>Example</h2>
+<p>Create a tibble with columns specifying the x and y coordinates, and the colours to be associated with the corresponding Voronoi cell</p>
 <div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">voronoise</span>)
 <span class="co">#&gt; Loading required package: ggplot2</span>
 <span class="co">#&gt; Loading required package: ggforce</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">1</span>)
 
-<span class="no">shades</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">n</span>) {
-  <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span>(<span class="fu"><a href="https://rdrr.io/r/grDevices/colors.html">colours</a></span>(), <span class="kw">size</span> <span class="kw">=</span> <span class="no">n</span>, <span class="kw">replace</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
-}
-
-<span class="no">dat</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(
+<span class="no">dat</span> <span class="kw">&lt;-</span> <span class="kw pkg">tibble</span><span class="kw ns">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(
   <span class="kw">x</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span>(<span class="kw">n</span> <span class="kw">=</span> <span class="fl">50</span>, <span class="kw">min</span> <span class="kw">=</span> <span class="fl">.1</span>, <span class="kw">max</span> <span class="kw">=</span> <span class="fl">.9</span>),
   <span class="kw">y</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span>(<span class="kw">n</span> <span class="kw">=</span> <span class="fl">50</span>, <span class="kw">min</span> <span class="kw">=</span> <span class="fl">.1</span>, <span class="kw">max</span> <span class="kw">=</span> <span class="fl">.9</span>),
-  <span class="kw">cols_b</span> <span class="kw">=</span> <span class="st">"antiquewhite2"</span>,
-  <span class="kw">cols_f</span> <span class="kw">=</span> <span class="fu">shades</span>(<span class="fl">50</span>)
+  <span class="kw">shade</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span>(<span class="fu"><a href="https://rdrr.io/r/grDevices/colors.html">colours</a></span>(), <span class="kw">size</span> <span class="kw">=</span> <span class="fl">50</span>, <span class="kw">replace</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
 )
 
-<span class="fu">ggplot</span>(<span class="no">dat</span>, <span class="fu">aes</span>(<span class="no">x</span>, <span class="no">y</span>, <span class="kw">group</span> <span class="kw">=</span> <span class="fl">1</span>)) +
-  <span class="fu">geom_voronoi_tile</span>(
-    <span class="kw">mapping</span> <span class="kw">=</span> <span class="fu">aes</span>(<span class="kw">fill</span> <span class="kw">=</span> <span class="no">cols_b</span>),
-    <span class="kw">show.legend</span> <span class="kw">=</span> <span class="fl">FALSE</span>,
-    <span class="kw">max.radius</span> <span class="kw">=</span> <span class="fl">.1</span>,
-    <span class="kw">radius</span> <span class="kw">=</span> <span class="fl">.01</span>,
-    <span class="kw">expand</span> <span class="kw">=</span> -<span class="fl">.005</span>
-  ) +
-  <span class="fu">geom_voronoi_tile</span>(
-    <span class="kw">mapping</span> <span class="kw">=</span> <span class="fu">aes</span>(<span class="kw">fill</span> <span class="kw">=</span> <span class="no">cols_f</span>),
-    <span class="kw">stat</span> <span class="kw">=</span> <span class="st">"voronoise_tile"</span>,
-    <span class="kw">show.legend</span> <span class="kw">=</span> <span class="fl">FALSE</span>,
-    <span class="kw">max.radius</span> <span class="kw">=</span> <span class="fl">.1</span>,
-    <span class="kw">radius</span> <span class="kw">=</span> <span class="fl">.01</span>,
-    <span class="kw">expand</span> <span class="kw">=</span> -<span class="fl">.005</span>
-  ) +
+<span class="no">dat</span>
+<span class="co">#&gt; # A tibble: 50 x 3</span>
+<span class="co">#&gt;        x     y shade       </span>
+<span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;       </span>
+<span class="co">#&gt;  1 0.312 0.482 tan         </span>
+<span class="co">#&gt;  2 0.398 0.789 grey43      </span>
+<span class="co">#&gt;  3 0.558 0.450 plum4       </span>
+<span class="co">#&gt;  4 0.827 0.296 rosybrown   </span>
+<span class="co">#&gt;  5 0.261 0.157 grey26      </span>
+<span class="co">#&gt;  6 0.819 0.180 springgreen4</span>
+<span class="co">#&gt;  7 0.856 0.353 gold3       </span>
+<span class="co">#&gt;  8 0.629 0.515 grey68      </span>
+<span class="co">#&gt;  9 0.603 0.630 navajowhite2</span>
+<span class="co">#&gt; 10 0.149 0.425 tomato      </span>
+<span class="co">#&gt; # … with 40 more rows</span></pre></div>
+<p>Set up a ggplot defined on the unit square, with an <code>"antiquewhite"</code> background:</p>
+<div class="sourceCode" id="cb3"><pre class="r"><span class="no">base</span> <span class="kw">&lt;-</span> <span class="fu">ggplot</span>(
+  <span class="kw">data</span> <span class="kw">=</span> <span class="no">dat</span>,
+  <span class="kw">mapping</span> <span class="kw">=</span> <span class="fu">aes</span>(<span class="no">x</span>, <span class="no">y</span>, <span class="kw">fill</span> <span class="kw">=</span> <span class="no">shade</span>, <span class="kw">group</span> <span class="kw">=</span> <span class="fl">1</span>)
+) +
   <span class="fu">scale_fill_identity</span>() +
+  <span class="fu">scale_x_continuous</span>(<span class="kw">expand</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0</span>)) +
+  <span class="fu">scale_y_continuous</span>(<span class="kw">expand</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0</span>)) +
   <span class="fu"><a href="reference/theme_mono.html">theme_mono</a></span>(<span class="st">"antiquewhite3"</span>) +
-  <span class="fu"><a href="reference/coord_square.html">coord_square</a></span>()</pre></div>
-<p><img src="reference/figures/README-example-1.png" width="100%"></p>
+  <span class="fu"><a href="reference/coord_square.html">coord_square</a></span>()
+
+<span class="no">base</span></pre></div>
+<p><img src="reference/figures/README-baseplot-1.png" width="100%"></p>
+<p>The default behaviour of <code><a href="reference/geom_voronoise.html">geom_voronoise()</a></code> is identical to <code><a href="https://ggforce.data-imaginist.com/reference/geom_delvor.html">ggforce::geom_voronoi_tile()</a></code> with some parameter values changed. It does not perturb the location of any of the tiles:</p>
+<div class="sourceCode" id="cb4"><pre class="r"><span class="no">base</span> +
+  <span class="fu"><a href="reference/geom_voronoise.html">geom_voronoise</a></span>(<span class="kw">fill</span> <span class="kw">=</span> <span class="st">"antiquewhite2"</span>)</pre></div>
+<p><img src="reference/figures/README-boring-1.png" width="100%"></p>
+<p>To perturb the tiles we need to pass it a <code>perturb</code> function:</p>
+<div class="sourceCode" id="cb5"><pre class="r"><span class="no">base</span> +
+  <span class="fu"><a href="reference/geom_voronoise.html">geom_voronoise</a></span>(<span class="kw">fill</span> <span class="kw">=</span> <span class="st">"antiquewhite2"</span>) +
+  <span class="fu"><a href="reference/geom_voronoise.html">geom_voronoise</a></span>(
+    <span class="kw">mapping</span> <span class="kw">=</span> <span class="fu">aes</span>(<span class="kw">fill</span> <span class="kw">=</span> <span class="no">shade</span>),
+    <span class="kw">perturb</span> <span class="kw">=</span> <span class="no">perturb_uniform</span>
+  )</pre></div>
+<p><img src="reference/figures/README-uniform-1.png" width="100%"></p>
+<p>It’s not too hard to define whatever perturb function one would like:</p>
+<div class="sourceCode" id="cb6"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>)
+
+<span class="no">perturb_fall</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">data</span>) {
+  <span class="no">data</span> <span class="kw">%&gt;%</span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="no">group</span>) <span class="kw">%&gt;%</span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(
+      <span class="kw">y</span> <span class="kw">=</span> <span class="no">y</span> - <span class="fu"><a href="https://rdrr.io/r/stats/Beta.html">rbeta</a></span>(<span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">1</span>) * <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span>(<span class="no">y</span>)
+    ) <span class="kw">%&gt;%</span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span>()
+}
+
+<span class="no">base</span> +
+  <span class="fu"><a href="reference/geom_voronoise.html">geom_voronoise</a></span>(<span class="kw">fill</span> <span class="kw">=</span> <span class="st">"antiquewhite2"</span>) +
+  <span class="fu"><a href="reference/geom_voronoise.html">geom_voronoise</a></span>(
+    <span class="kw">mapping</span> <span class="kw">=</span> <span class="fu">aes</span>(<span class="kw">fill</span> <span class="kw">=</span> <span class="no">shade</span>),
+    <span class="kw">perturb</span> <span class="kw">=</span> <span class="no">perturb_fall</span>
+  )</pre></div>
+<p><img src="reference/figures/README-fall-1.png" width="100%"></p>
 </div>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-    <div class="license">
+    <div class="links">
+<h2>Links</h2>
+<ul class="list-unstyled">
+<li>Browse source code at <br><a href="https://github.com/djnavarro/voronoise/">https://​github.com/​djnavarro/​voronoise/​</a>
+</li>
+<li>Report a bug at <br><a href="https://github.com/djnavarro/voronoise/issues">https://​github.com/​djnavarro/​voronoise/​issues</a>
+</li>
+</ul>
+</div>
+<div class="license">
 <h2>License</h2>
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>
