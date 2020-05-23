@@ -70,6 +70,15 @@ base
 
 <img src="man/figures/README-baseplot-1.png" width="100%" />
 
+The `base_plot()` function provides a convenient shorthand for the
+above:
+
+``` r
+base_plot()
+```
+
+<img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" />
+
 The default behaviour of `geom_voronoise()` is identical to
 `ggforce::geom_voronoi_tile()` with some parameter values changed. It
 does not perturb the location of any of the tiles:
@@ -88,7 +97,7 @@ base +
   geom_voronoise(fill = "antiquewhite2") + 
   geom_voronoise(
     mapping = aes(fill = shade), 
-    perturb = perturb_uniform
+    perturb = perturb_uniform()
   )  
 ```
 
@@ -117,3 +126,16 @@ base +
 ```
 
 <img src="man/figures/README-fall-1.png" width="100%" />
+
+The voronoise package comes with a couple of handy functions that will
+create custom perturbing functions. So a more typical use might look
+like this:
+
+``` r
+set.seed(1)
+base_plot() + 
+  geom_voronoise(fill = "antiquewhite2") + 
+  geom_voronoise(perturb = perturb_float(-90))
+```
+
+<img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />

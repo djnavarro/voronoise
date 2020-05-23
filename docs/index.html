@@ -120,20 +120,23 @@
 
 <span class="no">base</span></pre></div>
 <p><img src="reference/figures/README-baseplot-1.png" width="100%"></p>
-<p>The default behaviour of <code><a href="reference/geom_voronoise.html">geom_voronoise()</a></code> is identical to <code><a href="https://ggforce.data-imaginist.com/reference/geom_delvor.html">ggforce::geom_voronoi_tile()</a></code> with some parameter values changed. It does not perturb the location of any of the tiles:</p>
-<div class="sourceCode" id="cb4"><pre class="r"><span class="no">base</span> +
+<p>The <code><a href="reference/base_plot.html">base_plot()</a></code> function provides a convenient shorthand for the above:</p>
+<div class="sourceCode" id="cb4"><pre class="r"><span class="fu"><a href="reference/base_plot.html">base_plot</a></span>()</pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-2-1.png" width="100%"></p>
+<p>The default behaviour of <code><a href="reference/geom_voronoise.html">geom_voronoise()</a></code> is identical to <code><a href="https://rdrr.io/pkg/ggforce/man/geom_delvor.html">ggforce::geom_voronoi_tile()</a></code> with some parameter values changed. It does not perturb the location of any of the tiles:</p>
+<div class="sourceCode" id="cb5"><pre class="r"><span class="no">base</span> +
   <span class="fu"><a href="reference/geom_voronoise.html">geom_voronoise</a></span>(<span class="kw">fill</span> <span class="kw">=</span> <span class="st">"antiquewhite2"</span>)</pre></div>
 <p><img src="reference/figures/README-boring-1.png" width="100%"></p>
 <p>To perturb the tiles we need to pass it a <code>perturb</code> function:</p>
-<div class="sourceCode" id="cb5"><pre class="r"><span class="no">base</span> +
+<div class="sourceCode" id="cb6"><pre class="r"><span class="no">base</span> +
   <span class="fu"><a href="reference/geom_voronoise.html">geom_voronoise</a></span>(<span class="kw">fill</span> <span class="kw">=</span> <span class="st">"antiquewhite2"</span>) +
   <span class="fu"><a href="reference/geom_voronoise.html">geom_voronoise</a></span>(
     <span class="kw">mapping</span> <span class="kw">=</span> <span class="fu">aes</span>(<span class="kw">fill</span> <span class="kw">=</span> <span class="no">shade</span>),
-    <span class="kw">perturb</span> <span class="kw">=</span> <span class="no">perturb_uniform</span>
+    <span class="kw">perturb</span> <span class="kw">=</span> <span class="fu"><a href="reference/perturb_uniform.html">perturb_uniform</a></span>()
   )</pre></div>
 <p><img src="reference/figures/README-uniform-1.png" width="100%"></p>
 <p>It’s not too hard to define whatever perturb function one would like:</p>
-<div class="sourceCode" id="cb6"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>)
+<div class="sourceCode" id="cb7"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>)
 
 <span class="no">perturb_fall</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">data</span>) {
   <span class="no">data</span> <span class="kw">%&gt;%</span>
@@ -151,6 +154,12 @@
     <span class="kw">perturb</span> <span class="kw">=</span> <span class="no">perturb_fall</span>
   )</pre></div>
 <p><img src="reference/figures/README-fall-1.png" width="100%"></p>
+<p>The voronoise package comes with a couple of handy functions that will create custom perturbing functions. So a more typical use might look like this:</p>
+<div class="sourceCode" id="cb8"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">1</span>)
+<span class="fu"><a href="reference/base_plot.html">base_plot</a></span>() +
+  <span class="fu"><a href="reference/geom_voronoise.html">geom_voronoise</a></span>(<span class="kw">fill</span> <span class="kw">=</span> <span class="st">"antiquewhite2"</span>) +
+  <span class="fu"><a href="reference/geom_voronoise.html">geom_voronoise</a></span>(<span class="kw">perturb</span> <span class="kw">=</span> <span class="fu"><a href="reference/perturb_float.html">perturb_float</a></span>(-<span class="fl">90</span>))</pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-3-1.png" width="100%"></p>
 </div>
 </div>
   </div>
