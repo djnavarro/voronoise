@@ -74,7 +74,7 @@
 <a href="#voronoise" class="anchor"></a>Voronoise</h1></div>
 <!-- badges: start -->
 <!-- badges: end -->
-<p>The goal of voronoise is to make pretty pictures. It is a very minor tweak on the voronoi tesselations provided by the <code>ggforce</code> package. You can install the development (only) version of voronoise from GitHub with:</p>
+<p>The goal of voronoise is to make pretty pictures. It is a very minor tweak on the voronoi tesselations provided by the <code>ggforce</code> package. You can install the development version of voronoise from GitHub with:</p>
 <div class="sourceCode" id="cb1"><pre class="r"><span class="kw pkg">remotes</span><span class="kw ns">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"djnavarro/voronoise"</span>)</pre></div>
 <div id="example" class="section level2">
 <h2 class="hasAnchor">
@@ -107,56 +107,20 @@
 <span class="co">#&gt;  9 0.603 0.630 navajowhite2</span>
 <span class="co">#&gt; 10 0.149 0.425 tomato      </span>
 <span class="co">#&gt; # … with 40 more rows</span></pre></div>
-<p>Set up a ggplot defined on the unit square, with an <code>"antiquewhite"</code> background:</p>
-<div class="sourceCode" id="cb3"><pre class="r"><span class="no">base</span> <span class="kw">&lt;-</span> <span class="fu">ggplot</span>(
-  <span class="kw">data</span> <span class="kw">=</span> <span class="no">dat</span>,
-  <span class="kw">mapping</span> <span class="kw">=</span> <span class="fu">aes</span>(<span class="no">x</span>, <span class="no">y</span>, <span class="kw">fill</span> <span class="kw">=</span> <span class="no">shade</span>, <span class="kw">group</span> <span class="kw">=</span> <span class="fl">1</span>)
-) +
-  <span class="fu">scale_fill_identity</span>() +
-  <span class="fu">scale_x_continuous</span>(<span class="kw">expand</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0</span>)) +
-  <span class="fu">scale_y_continuous</span>(<span class="kw">expand</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0</span>)) +
-  <span class="fu"><a href="reference/theme_mono.html">theme_mono</a></span>(<span class="st">"antiquewhite3"</span>) +
-  <span class="fu"><a href="reference/coord_square.html">coord_square</a></span>()
-
-<span class="no">base</span></pre></div>
-<p><img src="reference/figures/README-baseplot-1.png" width="100%"></p>
-<p>The <code><a href="reference/base_plot.html">base_plot()</a></code> function provides a convenient shorthand for the above:</p>
-<div class="sourceCode" id="cb4"><pre class="r"><span class="fu"><a href="reference/base_plot.html">base_plot</a></span>()</pre></div>
+<p>The <code><a href="reference/base_plot.html">base_plot()</a></code> function initialises a ggplot object</p>
+<div class="sourceCode" id="cb3"><pre class="r"><span class="fu"><a href="reference/base_plot.html">base_plot</a></span>(<span class="no">dat</span>)</pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-2-1.png" width="100%"></p>
-<p>The default behaviour of <code><a href="reference/geom_voronoise.html">geom_voronoise()</a></code> is identical to <code><a href="https://rdrr.io/pkg/ggforce/man/geom_delvor.html">ggforce::geom_voronoi_tile()</a></code> with some parameter values changed. It does not perturb the location of any of the tiles:</p>
-<div class="sourceCode" id="cb5"><pre class="r"><span class="no">base</span> +
+<p>The default behaviour of <code><a href="reference/geom_voronoise.html">geom_voronoise()</a></code> is identical to <code><a href="https://ggforce.data-imaginist.com/reference/geom_delvor.html">ggforce::geom_voronoi_tile()</a></code> with some parameter values changed. It does not perturb the location of any of the tiles:</p>
+<div class="sourceCode" id="cb4"><pre class="r"><span class="fu"><a href="reference/base_plot.html">base_plot</a></span>(<span class="no">dat</span>) +
   <span class="fu"><a href="reference/geom_voronoise.html">geom_voronoise</a></span>(<span class="kw">fill</span> <span class="kw">=</span> <span class="st">"antiquewhite2"</span>)</pre></div>
 <p><img src="reference/figures/README-boring-1.png" width="100%"></p>
 <p>To perturb the tiles we need to pass it a <code>perturb</code> function:</p>
-<div class="sourceCode" id="cb6"><pre class="r"><span class="no">base</span> +
+<div class="sourceCode" id="cb5"><pre class="r"><span class="fu"><a href="reference/base_plot.html">base_plot</a></span>(<span class="no">dat</span>) +
   <span class="fu"><a href="reference/geom_voronoise.html">geom_voronoise</a></span>(<span class="kw">fill</span> <span class="kw">=</span> <span class="st">"antiquewhite2"</span>) +
-  <span class="fu"><a href="reference/geom_voronoise.html">geom_voronoise</a></span>(
-    <span class="kw">mapping</span> <span class="kw">=</span> <span class="fu">aes</span>(<span class="kw">fill</span> <span class="kw">=</span> <span class="no">shade</span>),
-    <span class="kw">perturb</span> <span class="kw">=</span> <span class="fu"><a href="reference/perturb_uniform.html">perturb_uniform</a></span>()
-  )</pre></div>
+  <span class="fu"><a href="reference/geom_voronoise.html">geom_voronoise</a></span>(<span class="kw">perturb</span> <span class="kw">=</span> <span class="fu"><a href="reference/perturb_uniform.html">perturb_uniform</a></span>(<span class="fl">.2</span>))</pre></div>
 <p><img src="reference/figures/README-uniform-1.png" width="100%"></p>
-<p>It’s not too hard to define whatever perturb function one would like:</p>
-<div class="sourceCode" id="cb7"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>)
-
-<span class="no">perturb_fall</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">data</span>) {
-  <span class="no">data</span> <span class="kw">%&gt;%</span>
-    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="no">group</span>) <span class="kw">%&gt;%</span>
-    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(
-      <span class="kw">y</span> <span class="kw">=</span> <span class="no">y</span> - <span class="fu"><a href="https://rdrr.io/r/stats/Beta.html">rbeta</a></span>(<span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">1</span>) * <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span>(<span class="no">y</span>)
-    ) <span class="kw">%&gt;%</span>
-    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span>()
-}
-
-<span class="no">base</span> +
-  <span class="fu"><a href="reference/geom_voronoise.html">geom_voronoise</a></span>(<span class="kw">fill</span> <span class="kw">=</span> <span class="st">"antiquewhite2"</span>) +
-  <span class="fu"><a href="reference/geom_voronoise.html">geom_voronoise</a></span>(
-    <span class="kw">mapping</span> <span class="kw">=</span> <span class="fu">aes</span>(<span class="kw">fill</span> <span class="kw">=</span> <span class="no">shade</span>),
-    <span class="kw">perturb</span> <span class="kw">=</span> <span class="no">perturb_fall</span>
-  )</pre></div>
-<p><img src="reference/figures/README-fall-1.png" width="100%"></p>
-<p>The voronoise package comes with a couple of handy functions that will create custom perturbing functions. So a more typical use might look like this:</p>
-<div class="sourceCode" id="cb8"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">1</span>)
-<span class="fu"><a href="reference/base_plot.html">base_plot</a></span>() +
+<p>Note that <code><a href="reference/perturb_uniform.html">perturb_uniform()</a></code> returns a function. The voronoise package comes with a couple of handy functions that will create custom perturbing functions. For example:</p>
+<div class="sourceCode" id="cb6"><pre class="r"><span class="fu"><a href="reference/base_plot.html">base_plot</a></span>(<span class="no">dat</span>) +
   <span class="fu"><a href="reference/geom_voronoise.html">geom_voronoise</a></span>(<span class="kw">fill</span> <span class="kw">=</span> <span class="st">"antiquewhite2"</span>) +
   <span class="fu"><a href="reference/geom_voronoise.html">geom_voronoise</a></span>(<span class="kw">perturb</span> <span class="kw">=</span> <span class="fu"><a href="reference/perturb_float.html">perturb_float</a></span>(-<span class="fl">90</span>))</pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-3-1.png" width="100%"></p>
