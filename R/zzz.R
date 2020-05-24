@@ -4,5 +4,5 @@
 NULL
 
 utils::globalVariables(c(
-  "x", "y", "group"
+  "x", "y", "group", "shade"
 ))

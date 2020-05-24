@@ -7,9 +7,9 @@
 #' @export
 base_data <- function(n = 50) {
   data.frame(
-    x = runif(n = 50, min = .1, max = .9),
-    y = runif(n = 50, min = .1, max = .9),
-    shade = sample(colours(), size = 50, replace = TRUE),
+    x = stats::runif(n = 50, min = .1, max = .9),
+    y = stats::runif(n = 50, min = .1, max = .9),
+    shade = sample(grDevices::colours(), size = 50, replace = TRUE),
     stringsAsFactors = FALSE
   )
 }

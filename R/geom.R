@@ -1,14 +1,14 @@
 #' Voronoise geom
 #'
-#' @param mapping dfadsf
-#' @param data dfsdf
-#' @param stat asdfasdf
-#' @param peturb sdfsdf
-#' @param ... fdssdf
-#' @param show.legend sdfsdf
-#' @param max.radius adsfasdf
-#' @param radius adsfsadf
-#' @param expand asdfasdf
+#' @param mapping ggplot2 mapping specified by aes()
+#' @param data data frame containing the values to use
+#' @param stat the statistic to compute
+#' @param perturb a perturbing function
+#' @param ... arguments to be passed to geom_voronoi_tile()
+#' @param show.legend by default no legend is displayed
+#' @param max.radius specifies the maximum distance from tile to point
+#' @param radius radius specifying curvature of the tile corners
+#' @param expand space between adjacent tiles
 #'
 #' @export
 geom_voronoise <- function(

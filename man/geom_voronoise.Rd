@@ -17,23 +17,23 @@ geom_voronoise(
 )
 }
 \arguments{
-\item{mapping}{dfadsf}
+\item{mapping}{ggplot2 mapping specified by aes()}
 
-\item{data}{dfsdf}
+\item{data}{data frame containing the values to use}
 
-\item{stat}{asdfasdf}
+\item{stat}{the statistic to compute}
 
-\item{...}{fdssdf}
+\item{perturb}{a perturbing function}
 
-\item{show.legend}{sdfsdf}
+\item{...}{arguments to be passed to geom_voronoi_tile()}
 
-\item{max.radius}{adsfasdf}
+\item{show.legend}{by default no legend is displayed}
 
-\item{radius}{adsfsadf}
+\item{max.radius}{specifies the maximum distance from tile to point}
 
-\item{expand}{asdfasdf}
+\item{radius}{radius specifying curvature of the tile corners}
 
-\item{peturb}{sdfsdf}
+\item{expand}{space between adjacent tiles}
 }
 \description{
 Voronoise geom
