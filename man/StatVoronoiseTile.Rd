@@ -3,7 +3,7 @@
 \docType{data}
 \name{StatVoronoiseTile}
 \alias{StatVoronoiseTile}
-\title{Voronoise extensions to ggplot2}
+\title{Voronoise stat}
 \format{
 An object of class \code{StatVoronoiseTile} (inherits from \code{StatVoronoiTile}, \code{Stat}, \code{ggproto}, \code{gg}) of length 2.
 }

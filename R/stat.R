@@ -1,6 +1,6 @@
 # define the voronoise stat
 
-#' Voronoise extensions to ggplot2
+#' Voronoise stat
 #'
 #' The voronoise package provides the voronoise_tile stat.
 #'
