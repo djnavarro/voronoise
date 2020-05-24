@@ -4,10 +4,16 @@
 \alias{voronoise_data}
 \title{Generate random points for the voronoi tesselation}
 \usage{
-voronoise_data(n = 50)
+voronoise_data(n = 50, shades = NULL, min = 0.1, max = 0.9)
 }
 \arguments{
 \item{n}{Number of points}
+
+\item{shades}{Vector of possible colours}
+
+\item{min}{Smallest value}
+
+\item{max}{Largest value}
 }
 \value{
 Data frame with columns x, y and shade

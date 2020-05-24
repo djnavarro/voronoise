@@ -4,16 +4,14 @@
 \alias{perturb_float}
 \title{Perturb voronoi tiles by drifting along an axis}
 \usage{
-perturb_float(angle = 90, bound = TRUE, noise = NULL, ...)
+perturb_float(angles = 90, bound = TRUE, noise = c(1, 5))
 }
 \arguments{
-\item{angle}{direction of the drift}
+\item{angles}{possible directions for the drift in degrees}
 
 \item{bound}{should the drift be bounded at the edge of the box}
 
-\item{noise}{function to generate random number on the unit interval (defaults to beta density)}
-
-\item{...}{arguments to be passed to noise}
+\item{noise}{parameters specifying the noise}
 }
 \value{
 A function that takes data as input

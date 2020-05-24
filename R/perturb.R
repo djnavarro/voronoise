@@ -22,29 +22,21 @@ perturb_uniform <- function(noise = .1) {
 #' Perturb voronoi tiles by drifting along an axis
 #'
 #' @param bound should the drift be bounded at the edge of the box
-#' @param angle direction of the drift
-#' @param noise function to generate random number on the unit interval (defaults to beta density)
-#' @param ... arguments to be passed to noise
+#' @param angles possible directions for the drift in degrees
+#' @param noise parameters specifying the noise
 #'
 #' @return A function that takes data as input
 #' @export
-perturb_float <- function(angle = 90, bound = TRUE, noise = NULL, ...) {
-
-  angle <- radians(angle)
-  x_move <- cos(angle)
-  y_move <- sin(angle)
-
-  if(is.null(noise)) {
-    noise <- function(a = 1, b = 3) {
-      stats::rbeta(1, a, b)
-    }
-  }
-
+perturb_float <- function(angles = 90, bound = TRUE, noise = c(1, 5)) {
   function(data) {
+
     data %>%
       dplyr::group_by(group) %>%
       dplyr::mutate(
-        s = noise(),
+        s = stats::rbeta(1, noise[1], noise[2]),
+        th = sample(radians(angles), 1),
+        x_move = cos(th),
+        y_move = sin(th),
         x = dplyr::case_when(
           bound == FALSE              ~  x + s * x_move,
           bound == TRUE & x_move > 0  ~  x + s * x_move * (1 - max(x)),

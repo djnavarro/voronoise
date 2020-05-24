@@ -44,23 +44,23 @@ dat <- tibble::tibble(
 dat
 ```
 
-The `base_plot()` function initialises a ggplot object
+The `voronoise_base()` function initialises a ggplot object
 
 ```{r}
-base_plot(dat)
+voronoise_base(dat)
 ```
 
 The default behaviour of `geom_voronoise()` is identical to `ggforce::geom_voronoi_tile()` with some parameter values changed. It does not perturb the location of any of the tiles:
 
 ```{r boring}
-base_plot(dat) + 
+voronoise_base(dat) + 
   geom_voronoise(fill = "antiquewhite2")
 ```
 
 To perturb the tiles we need to pass it a `perturb` function:
 
 ```{r uniform}
-base_plot(dat) + 
+voronoise_base(dat) + 
   geom_voronoise(fill = "antiquewhite2") + 
   geom_voronoise(perturb = perturb_uniform(.2))  
 ```
@@ -68,9 +68,26 @@ base_plot(dat) +
 Note that `perturb_uniform()` returns a function. The voronoise package comes with a couple of handy functions that will create custom perturbing functions. For example:
 
 ```{r}
-base_plot(dat) + 
+voronoise_base(dat) + 
   geom_voronoise(fill = "antiquewhite2") + 
   geom_voronoise(perturb = perturb_float(-90))
+```
+
+An example using some more settings:
+
+```{r}
+set.seed(1)
+voronoise_base(
+  data = voronoise_data(100, viridis::magma(10)), 
+  background = "skyblue3"
+) + 
+  geom_voronoise(fill = "skyblue2") + 
+  geom_voronoise(
+    perturb = perturb_float(
+      angles = c(0, 90, 180), 
+      noise = c(2, 1)
+    )
+  )
 ```
 
 

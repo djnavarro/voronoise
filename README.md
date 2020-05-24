@@ -50,10 +50,10 @@ dat
 #> # … with 40 more rows
 ```
 
-The `base_plot()` function initialises a ggplot object
+The `voronoise_base()` function initialises a ggplot object
 
 ``` r
-base_plot(dat)
+voronoise_base(dat)
 ```
 
 <img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" />
@@ -63,7 +63,7 @@ The default behaviour of `geom_voronoise()` is identical to
 does not perturb the location of any of the tiles:
 
 ``` r
-base_plot(dat) + 
+voronoise_base(dat) + 
   geom_voronoise(fill = "antiquewhite2")
 ```
 
@@ -72,7 +72,7 @@ base_plot(dat) +
 To perturb the tiles we need to pass it a `perturb` function:
 
 ``` r
-base_plot(dat) + 
+voronoise_base(dat) + 
   geom_voronoise(fill = "antiquewhite2") + 
   geom_voronoise(perturb = perturb_uniform(.2))  
 ```
@@ -84,9 +84,28 @@ comes with a couple of handy functions that will create custom
 perturbing functions. For example:
 
 ``` r
-base_plot(dat) + 
+voronoise_base(dat) + 
   geom_voronoise(fill = "antiquewhite2") + 
   geom_voronoise(perturb = perturb_float(-90))
 ```
 
 <img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
+
+An example using some more settings:
+
+``` r
+set.seed(1)
+voronoise_base(
+  data = voronoise_data(100, viridis::magma(10)), 
+  background = "skyblue3"
+) + 
+  geom_voronoise(fill = "skyblue2") + 
+  geom_voronoise(
+    perturb = perturb_float(
+      angles = c(0, 90, 180), 
+      noise = c(2, 1)
+    )
+  )
+```
+
+<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />

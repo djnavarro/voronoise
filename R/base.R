@@ -2,14 +2,22 @@
 #' Generate random points for the voronoi tesselation
 #'
 #' @param n Number of points
+#' @param shades Vector of possible colours
+#' @param min Smallest value
+#' @param max Largest value
 #'
 #' @return Data frame with columns x, y and shade
 #' @export
-voronoise_data <- function(n = 50) {
+voronoise_data <- function(n = 50, shades = NULL, min = .1, max = .9) {
+
+  if(is.null(shades)) {
+    shades <- grDevices::colours()
+  }
+
   data.frame(
-    x = stats::runif(n = 50, min = .1, max = .9),
-    y = stats::runif(n = 50, min = .1, max = .9),
-    shade = sample(grDevices::colours(), size = 50, replace = TRUE),
+    x = stats::runif(n = n, min = min, max = max),
+    y = stats::runif(n = n, min = min, max = max),
+    shade = sample(shades, size = n, replace = TRUE),
     stringsAsFactors = FALSE
   )
 }
