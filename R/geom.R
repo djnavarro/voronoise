@@ -29,9 +29,9 @@ geom_voronoise <- function(
     stat = stat,
     perturb = perturb,
     ...,
-    show.legend = FALSE,
-    max.radius = .1,
-    radius = .01,
-    expand = -.005
+    show.legend = show.legend,
+    max.radius = max.radius,
+    radius = radius,
+    expand = expand
   )
 }

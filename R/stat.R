@@ -12,8 +12,9 @@ StatVoronoiseTile <- ggplot2::ggproto(
                            asp.ratio = 1, perturb = perturb_uniform()) {
 
     vtile <- ggforce::StatVoronoiTile$compute_group(
-      data, scales, bound, eps, max.radius,
-      normalize, asp.ratio)
+      data = data, scales = scales, bound = bound, eps = eps,
+      max.radius = max.radius, normalize = normalize,
+      asp.ratio = asp.ratio)
 
     return(perturb(vtile))
   }
